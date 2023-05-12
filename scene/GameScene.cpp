@@ -1,12 +1,13 @@
 #include "GameScene.h"
 #include "TextureManager.h"
+#include"Player.h"
 #include <cassert>
+#include"AxisIndicator.h"
+
 
 GameScene::GameScene() {}
 
 GameScene::~GameScene() {
-	//delete sprite_;
-	delete model_;
 }
 
 void GameScene::Initialize() {
@@ -14,24 +15,40 @@ void GameScene::Initialize() {
 	dxCommon_ = DirectXCommon::GetInstance();
 	input_ = Input::GetInstance();
 	audio_ = Audio::GetInstance();
-	textuteHandle_ = TextureManager::Load("sample.png");
-	//3Dモデルの生成
+	textureHandle_ = TextureManager::Load("sample.png");
 	model_ = Model::Create();
-	//ワールドトランスフォームの初期化
 	worldTransform_.Initialize();
-	//ピュープロジェクションの初期化
 	viewProjection_.Initialize();
-	//sprite_ = Sprite::Create(textuteHandle_, {50.50});
+	//自キャラの生成
+	player_ = new Player();
+	//自キャラの初期化
+	player_->Initialize(model_,textureHandle_);
+	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
+	//軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//軸方向表示が参照するviewProjectionを参照する(アドレスなし)
+	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
 
-void GameScene::Update() {
-//スプライトの今の座標を取得
-//Vector2 position = sprite_->GetPosition();
-////座標を{2,1}移動
-//position.x += 2.0f;
-//position.y += 1.0f;
-////移動した座標をスプライトに反映
-//sprite_->SetPosition(position);
+void GameScene::Update() 
+{ 
+	player_->Update();
+	debugCamera_->Update();
+#ifndef _DEBUG
+	if (input->TriggerKey(DIK_1))
+	{
+		isDebugCameraActive_ = true;
+	}
+#endif // !_DEBUG
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
+	}
+	else{
+		viewProjection_.UpdateMatrix();
+	};
 }
 
 void GameScene::Draw() {
@@ -61,12 +78,13 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
-
+	player_->Draw(viewProjection_);
+	Model::PostDraw();
 	//3Dモデル描画
-	model_->Draw(worldTransform_, viewProjection_, textuteHandle_);
+	//model_->Draw(worldTransform_, viewProjection_, textureHandle_)
 
 	// 3Dオブジェクト描画後処理
-	Model::PostDraw();
+	
 #pragma endregion
 
 #pragma region 前景スプライト描画
@@ -80,5 +98,7 @@ void GameScene::Draw() {
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
+	//自キャラの描画
+	//player_->Draw();
 #pragma endregion
 }
