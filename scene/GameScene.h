@@ -10,6 +10,7 @@
 #include "WorldTransform.h"
 #include "Player.h"
 #include "DebugCamera.h"
+#include "AxisIndicator.h"
 
 /// <summary>
 /// ゲームシーン
@@ -58,7 +59,7 @@ private: // メンバ変数
 	// デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	// デバックカメラ有効
-	bool isDebugCameraActive_ = true;
+	bool isDebugCameraActive_ = false;
 };
 
 

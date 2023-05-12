@@ -1,5 +1,4 @@
-﻿
-#include "Model.h"
+﻿#include "Model.h"
 #include "WorldTransform.h"
 #include"input/Input.h"
 #include "ImGuiManager.h"
