@@ -1,9 +1,9 @@
-﻿
-#include "Model.h"
+﻿#include "Model.h"
 #include "WorldTransform.h"
 #include"input/Input.h"
 #include "ImGuiManager.h"
 #include <cassert>
+#include "Bullet.h"
 #pragma once
 
 /// <summary>
@@ -30,6 +30,11 @@ public:
 	/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(ViewProjection&viewProjection);
 
+	/// <summary>
+	/// 攻撃
+	/// </summary>
+	void Attack();
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -39,6 +44,7 @@ private:
 	uint32_t textureHandle_ = 0u;
 	//キーボード入力
 	Input* input_ = nullptr;
-
+	//弾
+	PlayerBullet* bullet_ = nullptr;
 };
 

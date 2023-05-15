@@ -30,6 +30,18 @@ void Player::Initialize(Model* model, uint32_t textureHandle) {
 /// </summary>
 void Player::Update() {
 
+	//回転速さ[ラジアン/frame]
+	const float kRotSpeed = 0.02f;
+
+	//押した方向で移動ベクトルを変更
+	if (input_->PushKey(DIK_A))
+	{
+		worldTransform_.rotation_.y -= kRotSpeed;
+	}
+	else if (input_->PushKey(DIK_D))
+	{
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
 
@@ -93,11 +105,42 @@ void Player::Update() {
 	worldTransform_.translation_ = {sliderValue[0], sliderValue[1], sliderValue[2]};
 	ImGui::End();
 #endif // DEBUG
+
+	//キャラクター攻撃処理
+	Attack();
+
+	//弾更新
+	if (bullet_)
+	{
+		bullet_->Update();
+	}
 }
 
 /// <summary>
 /// 描画
 /// </summary>
-void Player::Draw(ViewProjection& viewProjection) {
+void Player::Draw(ViewProjection& viewProjection)
+{
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+
+	if (bullet_)
+	{
+		bullet_->Draw(viewProjection);
+	}
+}
+
+/// <summary>
+/// 攻撃
+/// </summary>
+void Player::Attack(){ 
+	if (input_->PushKey(DIK_Q))
+	{
+		//弾を生成し、初期化
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_);
+
+		// 弾を登録する
+		bullet_ = newBullet;
+    }
+
 }
