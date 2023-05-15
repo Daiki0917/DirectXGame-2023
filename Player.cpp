@@ -110,9 +110,9 @@ void Player::Update() {
 	Attack();
 
 	//弾更新
-	if (bullet_)
+	for (PlayerBullet* bullet:bullets_)
 	{
-		bullet_->Update();
+		bullet->Update();
 	}
 }
 
@@ -123,9 +123,9 @@ void Player::Draw(ViewProjection& viewProjection)
 {
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 
-	if (bullet_)
+	for (PlayerBullet*bullet:bullets_)
 	{
-		bullet_->Draw(viewProjection);
+		bullet->Draw(viewProjection);
 	}
 }
 
@@ -133,14 +133,21 @@ void Player::Draw(ViewProjection& viewProjection)
 /// 攻撃
 /// </summary>
 void Player::Attack(){ 
-	if (input_->PushKey(DIK_Q))
+	if (input_->TriggerKey(DIK_SPACE))
 	{
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
 		newBullet->Initialize(model_, worldTransform_.translation_);
 
 		// 弾を登録する
-		bullet_ = newBullet;
+		bullets_.push_back(newBullet);
     }
 
+}
+
+Player::~Player() {
+	// bullet_の開放
+	for (PlayerBullet* bullet : bullets_) {
+		delete bullet;
+	}
 }

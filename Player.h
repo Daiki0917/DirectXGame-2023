@@ -4,6 +4,7 @@
 #include "ImGuiManager.h"
 #include <cassert>
 #include "Bullet.h"
+#include<list>
 #pragma once
 
 /// <summary>
@@ -35,6 +36,11 @@ public:
 	/// </summary>
 	void Attack();
 
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Player();
+
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
@@ -46,5 +52,6 @@ private:
 	Input* input_ = nullptr;
 	//弾
 	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 };
 
