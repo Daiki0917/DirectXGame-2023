@@ -25,7 +25,7 @@ void GameScene::Initialize() {
 	player_->Initialize(model_,textureHandle_);
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 	//軸方向表示の表示を有効にする
-	AxisIndicator::GetInstance()->SetVisible(true);
+	AxisIndicator::GetInstance()->SetVisible(true); 
 	//軸方向表示が参照するviewProjectionを参照する(アドレスなし)
 	AxisIndicator::GetInstance()->SetTargetViewProjection(&viewProjection_);
 }
@@ -35,7 +35,7 @@ void GameScene::Update()
 	player_->Update();
 	debugCamera_->Update();
 #ifndef _DEBUG
-	if (input->TriggerKey(DIK_1))
+	if (input_->TriggerKey(DIK_1))
 	{
 		isDebugCameraActive_ = true;
 	}

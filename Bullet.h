@@ -3,7 +3,7 @@
 /// <summary>
 /// 自キャラの弾
 /// </summary>
-class PlayerBullet {
+class PlayerBullet { 
 
 public:
 	/// <summary>
