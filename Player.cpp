@@ -39,6 +39,15 @@ void Player::Update() {
 	{
 		worldTransform_.rotation_.y += kRotSpeed;
 	}
+	//デスフラグの立った球の削除
+	bullets_.remove_if([](PlayerBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+	
 	// キャラクターの移動ベクトル
 	Vector3 move = {0, 0, 0};
 
