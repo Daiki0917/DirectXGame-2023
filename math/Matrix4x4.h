@@ -2,6 +2,7 @@
 #include"Vector3.h"
 #define USE_MATH_DEFINES
 #include<math.h>
+#include<cmath>
 
     /// <summary>
 /// 4x4行列

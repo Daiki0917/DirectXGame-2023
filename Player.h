@@ -5,6 +5,10 @@
 #include <cassert>
 #include "Bullet.h"
 #include<list>
+#include"MathUtility.h"
+#include<cmath>
+#include<math.h>
+#include<iostream>
 #pragma once
 
 /// <summary>

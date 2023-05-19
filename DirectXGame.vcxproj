@@ -111,6 +111,7 @@
     <ClCompile Include="base\WinApp.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="MathUtility.cpp" />
     <ClCompile Include="Matrix4x4.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBUller.cpp" />
@@ -142,6 +143,7 @@
     <ClInclude Include="base\WinApp.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="input\Input.h" />
+    <ClInclude Include="MathUtility.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
