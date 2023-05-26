@@ -26,7 +26,7 @@ void GameScene::Initialize() {
 	//敵キャラの初期化
 	enemy_ = new Enemy();
 	//敵キャラの初期化
-	enemy_->Initialize(model_, {1,1,1});
+	enemy_->Initialize(model_, {1,1,50});
 	
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
