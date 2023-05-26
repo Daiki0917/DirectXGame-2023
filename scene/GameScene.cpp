@@ -1,6 +1,5 @@
 #include "GameScene.h"
 #include "TextureManager.h"
-#include"Player.h"
 #include <cassert>
 #include"AxisIndicator.h"
 
@@ -24,6 +23,11 @@ void GameScene::Initialize() {
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
+	//敵キャラの初期化
+	enemy_ = new Enemy();
+	//敵キャラの初期化
+	enemy_->Initialize(model_, {1,1,1});
+	
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するviewProjectionを参照する(アドレスなし)
@@ -34,6 +38,10 @@ void GameScene::Update()
 { 
 	player_->Update();
 	debugCamera_->Update();
+	if (enemy_)
+	{
+		enemy_->Update();
+	}
 #ifndef _DEBUG
 	if (input_->TriggerKey(DIK_1))
 	{
@@ -79,6 +87,10 @@ void GameScene::Draw() {
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// </summary>
 	player_->Draw(viewProjection_);
+	if (enemy_)
+	{
+		enemy_->Draw(viewProjection_);
+	}
 	Model::PostDraw();
 	//3Dモデル描画
 	//model_->Draw(worldTransform_, viewProjection_, textureHandle_)

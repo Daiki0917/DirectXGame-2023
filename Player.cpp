@@ -1,7 +1,5 @@
 ﻿#include "Player.h"
 
-
-
 /// <summary>
 /// 初期化
 /// </summary>
@@ -67,18 +65,6 @@ void Player::Update() {
 	} else if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharcterSpeed;
 	}
-
-	//回転速さ[ラジアン/frame]
-	/*const float kRotSpeed = 0.02f;*/
-
-	//押した方向で移動ベクトルを変更1
-	/*if (input->PushKey(DIK_A))
-	{
-		WorldTransform
-	} else if (input_->PushKey[DIK_D]
-		{
-
-		})*/
 
 	// 範囲制限
 	const float kMoveLimitX = 20.0f;
