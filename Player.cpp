@@ -141,7 +141,6 @@ void Player::Attack(){
 		// 弾を登録する
 		bullets_.push_back(newBullet);
     }
-
 }
 
 Player::~Player() {

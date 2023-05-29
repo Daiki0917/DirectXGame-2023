@@ -14,6 +14,7 @@ class Enemy {
 	};
 
 public:
+	static const int kFireInterval = 60;
 	/// <summary>
 	/// 初期化
 	/// </summary>
@@ -35,6 +36,17 @@ public:
 	void Fire();
 
 	/// <summary>
+	/// 接近フェーズ初期化
+	/// </summary>
+	void ApproachInitialize();
+
+	/// <summary>
+	/// 接近フェーズ更新
+	/// </summary>
+	void ApproachUpdate();
+
+
+	/// <summary>
 	/// デストラクタ
 	/// </summary>
 	~Enemy();
@@ -49,4 +61,6 @@ private:
 	// 弾
 	/*EnemyBullet* bullet_ = nullptr;*/
 	std::list<EnemyBullet*> bullets_;
+	//発射タイマー
+	int32_t fireTimer = 0;
 };

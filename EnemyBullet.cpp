@@ -28,6 +28,7 @@ void EnemyBullet::Draw(const ViewProjection& viewProjection)
 	// モデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
 }
+
 void EnemyBullet::Update() {
 	// 座標を移動させる(1フレーム分の移動量を足しこむ)
 	worldTransform_.translation_.x += velocity_.x;

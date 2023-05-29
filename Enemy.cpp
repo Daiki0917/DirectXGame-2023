@@ -24,11 +24,24 @@ void Enemy::Initialize(Model* model,const Vector3& position) {
 	velocity_ = {-0.2f, -0.2f, -0.2f};
 
 	//発射関数の呼び出し
-	Fire();
+	//Fire();
+
+	//接近フェーズ
+	ApproachInitialize();
+
 }
 
 void Enemy::Update()
 {
+	// デスフラグの立った球の削除
+	bullets_.remove_if([](EnemyBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
 	switch (phase_) {
 	case Phase::Approach:
 	default:
@@ -38,6 +51,7 @@ void Enemy::Update()
 		if (worldTransform_.translation_.z < 0.0f) {
 			phase_ = Phase::Leave;
 		}
+		ApproachUpdate();
 		break;
 	case Phase::Leave:
 		// 移動(ベクトルを加算)
@@ -53,20 +67,13 @@ void Enemy::Update()
 	// 座標を元に行列の更新を行う。
 	worldTransform_.UpdateMatrix();
 
-	// デスフラグの立った球の削除
-	bullets_.remove_if([](EnemyBullet* bullet) {
-		if (bullet->IsDead()) {
-			delete bullet;
-			return true;
-		}
-		return false;
-	});
 
 	// 弾更新
 	for (EnemyBullet* bullet:bullets_) 
 	{
 		bullet->Update();
 	}
+	
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) 
@@ -93,3 +100,19 @@ void Enemy::Fire()
 	bullets_.push_back(newBullet);
 }
 
+void Enemy::ApproachInitialize() {
+	// 発動タイマーを初期化
+	fireTimer = kFireInterval;
+}
+
+void Enemy::ApproachUpdate() {
+	// 発射タイマーカウントダウン
+	fireTimer--;
+	// 指定時間に達した
+	if (fireTimer <= 0) {
+		// 弾を発射
+		Fire();
+		// 発動タイマーを初期化
+		fireTimer = kFireInterval;
+	}
+}
