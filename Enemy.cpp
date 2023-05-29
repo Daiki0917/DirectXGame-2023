@@ -1,6 +1,14 @@
 ﻿#include "Enemy.h"
 
+Enemy::~Enemy() {
+	// bullet_の開放
+	for (EnemyBullet* bullet : bullets_) {
+		delete bullet;
+	}
+}
+
 void Enemy::Initialize(Model* model,const Vector3& position) {
+
 	// 引数で受け取った初期座標をセット
 	worldTransform_.translation_ = position;
 
@@ -14,6 +22,9 @@ void Enemy::Initialize(Model* model,const Vector3& position) {
 
 	// 引数で受け取った速度をメンバ変数に代入
 	velocity_ = {-0.2f, -0.2f, -0.2f};
+
+	//発射関数の呼び出し
+	Fire();
 }
 
 void Enemy::Update()
@@ -41,10 +52,44 @@ void Enemy::Update()
 
 	// 座標を元に行列の更新を行う。
 	worldTransform_.UpdateMatrix();
+
+	// デスフラグの立った球の削除
+	bullets_.remove_if([](EnemyBullet* bullet) {
+		if (bullet->IsDead()) {
+			delete bullet;
+			return true;
+		}
+		return false;
+	});
+
+	// 弾更新
+	for (EnemyBullet* bullet:bullets_) 
+	{
+		bullet->Update();
+	}
 }
 
 void Enemy::Draw(ViewProjection& viewProjection) 
 {
     // モデルの描画
 	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	//弾の描画
+	for (EnemyBullet* bullet : bullets_) {
+		bullet->Draw(viewProjection);
+	}
 }
+
+void Enemy::Fire()
+{
+	// 弾の速度
+	const float kBulletSpeed = -1.0f;
+	Vector3 velocity(0, 0, kBulletSpeed);
+
+	// 弾を生成し、初期化
+	EnemyBullet* newBullet = new EnemyBullet();
+	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
+
+	// 弾を登録する
+	bullets_.push_back(newBullet);
+}
+

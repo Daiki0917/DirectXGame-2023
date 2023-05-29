@@ -1,5 +1,6 @@
 ﻿#include <Model.h>
 #include <WorldTransform.h>
+#include<EnemyBullet.h>
 
 /// <summary>
 /// 敵
@@ -28,10 +29,24 @@ public:
 	/// </summary>
 	void Draw(ViewProjection& viewProjection);
 
+	/// <summary>
+	/// 弾発射
+	/// </summary>
+	void Fire();
+
+	/// <summary>
+	/// デストラクタ
+	/// </summary>
+	~Enemy();
+
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_;
 	uint32_t textureHandle_;
 	Vector3 velocity_;
 	Phase phase_ = Phase::Approach;
+	// 弾
+	/*EnemyBullet* bullet_ = nullptr;*/
+	std::list<EnemyBullet*> bullets_;
 };

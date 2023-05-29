@@ -4,7 +4,8 @@
 #include<math.h>
 #include<iostream>
 
-void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity) {
+void PlayerBullet::Initialize(Model* model, const Vector3& position, const Vector3& velocity)
+{
 	 //NULLポイントチェック
 	assert(model);
 
@@ -41,3 +42,4 @@ void PlayerBullet::Update()
 	
 	worldTransform_.UpdateMatrix(); 
 }
+
