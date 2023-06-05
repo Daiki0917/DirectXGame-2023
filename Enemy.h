@@ -1,7 +1,11 @@
 ﻿#include <Model.h>
 #include <WorldTransform.h>
 #include<EnemyBullet.h>
+#include <cassert>
+#include<Player.h>
 
+//自キャラの前方宣言
+class Player;
 /// <summary>
 /// 敵
 /// </summary>
@@ -51,6 +55,10 @@ public:
 	/// </summary>
 	~Enemy();
 
+	void SetPlayer(Player* player) { player_ = player; }
+
+	//ワールド座標を取得
+	Vector3 GetWorldPosition();
 
 private:
 	WorldTransform worldTransform_;
@@ -63,4 +71,7 @@ private:
 	std::list<EnemyBullet*> bullets_;
 	//発射タイマー
 	int32_t fireTimer = 0;
+	//自キャラ
+	Player* player_ = nullptr;
+	
 };
