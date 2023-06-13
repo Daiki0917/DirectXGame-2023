@@ -135,6 +135,8 @@ void Enemy::ApproachUpdate() {
 	}
 }
 
+void Enemy::OnCollision() {}
+
 Vector3 Enemy::GetWorldPosition() {
      //ワールド座標を入れる変数
 	Vector3 worldPos;

@@ -49,6 +49,10 @@ public:
 	/// </summary>
 	void ApproachUpdate();
 
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
 
 	/// <summary>
 	/// デストラクタ
@@ -59,6 +63,12 @@ public:
 
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+	//弾リストを取得
+	const std::list<EnemyBullet*>& GetBullets() { return bullets_; }
+
+	const float GetEnemyRadius() { return enemyRadius; }
+	const float enemyRadius = 1.0f;
 
 private:
 	WorldTransform worldTransform_;

@@ -9,6 +9,7 @@
 #include<cmath>
 #include<math.h>
 #include<iostream>
+#include"Vector3.h"
 #pragma once
 
 /// <summary>
@@ -45,8 +46,19 @@ public:
 	/// </summary>
 	~Player();
 
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
+
 	//ワールド座標を取得
 	Vector3 GetWorldPosition();
+
+	//弾リストを取得
+	const std::list<PlayerBullet*>& GetBullets() { return bullets_; }
+	
+	const float GetPlayerRadius() { return playerRadius; }
+	const float playerRadius = 1.0f;
 
 private:
 	//ワールド変換データ
@@ -60,6 +72,7 @@ private:
 	//弾
 	/*PlayerBullet* bullet_ = nullptr;*/
 	std::list<PlayerBullet*> bullets_;
+
 
 };
 

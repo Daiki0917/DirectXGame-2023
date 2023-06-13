@@ -26,7 +26,18 @@ public:
 	/// </param>
 	void Draw(const ViewProjection& viewProjection);
 
+	/// <summary>
+	/// 衝突を検出したら呼び出されるコールバック関数
+	/// </summary>
+	void OnCollision();
+
 	bool IsDead() const { return isDead_; }
+
+	Vector3 GetWorldPosition();
+
+	const float GetPlayerBulletRadius() { return playerBulletRadius; }
+	const float playerBulletRadius = 1.0f;
+
 
 private:
 	WorldTransform  worldTransform_;
