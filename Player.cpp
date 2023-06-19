@@ -83,7 +83,7 @@ void Player::Update() {
 	worldTransform_.translation_.z += move.z;
 
 	worldTransform_.matWorld_ = MakeAffineMatrix(
-	    worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
+	worldTransform_.scale_, worldTransform_.rotation_, worldTransform_.translation_);
 
 	// 行列を定数バッファーに転送
 	worldTransform_.TransferMatrix();
