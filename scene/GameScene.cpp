@@ -13,6 +13,7 @@ GameScene::~GameScene() {
 	delete model_;
 	delete skydome_;
 	delete modelSkydome_; 
+	delete reilCamera_;
 }
 
 void GameScene::Initialize() {
@@ -28,7 +29,11 @@ void GameScene::Initialize() {
 	player_ = new Player();
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_);
+	//デバックカメラ
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
+	//レールカメラ
+	reilCamera_ = new RailCamera();
+	reilCamera_->Initialize({0,0,0},{0,0,0});
 	//敵キャラの初期化
 	enemy_ = new Enemy();
 	//敵キャラの初期化
@@ -39,10 +44,6 @@ void GameScene::Initialize() {
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_);
-	//自キャラの初期化
-	
-
-
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するviewProjectionを参照する(アドレスなし)
@@ -54,6 +55,7 @@ void GameScene::Update()
 	player_->Update();
 	debugCamera_->Update();
 	skydome_->Update();
+	reilCamera_->Update();
 	
 	if (enemy_)
 	{
@@ -70,11 +72,15 @@ void GameScene::Update()
 		viewProjection_.matView = debugCamera_->GetViewProjection().matView;
 		viewProjection_.matProjection = debugCamera_->GetViewProjection().matProjection;
 		viewProjection_.TransferMatrix();
-	}
-	else{
-		viewProjection_.UpdateMatrix();
-	};
+	} 
+	else if (!isDebugCameraActive_)
+	{
+		reilCamera_->Update(); 
+		viewProjection_.matView = reilCamera_->GetViewProjection().matView;
+		viewProjection_.matProjection = reilCamera_->GetViewProjection().matProjection;
+		viewProjection_.TransferMatrix();
 
+	}
 	CheckAllCollisions();
 }
 
