@@ -40,7 +40,7 @@ public:
 private:
 
 	WorldTransform worldTransform_;
-	Model* model_ = nullptr;
+	Model* model_;
 	uint32_t textureHandle_ = 0u;
 	Vector3 velocity_;
 	// 寿命<frm>

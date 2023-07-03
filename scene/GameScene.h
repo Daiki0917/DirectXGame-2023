@@ -13,6 +13,8 @@
 #include "Skydome.h"
 #include "DebugCamera.h"
 #include "RailCamera.h"
+#include<list>
+#include<sstream>
 
 /// <summary>
 /// ゲームシーン
@@ -50,6 +52,28 @@ public: // メンバ関数
 	/// </summary>
 	void CheckAllCollisions();
 
+	/// <summary>
+	/// 敵発生データの読み込み
+	/// </summary>
+	void LoadEnemyPopData();
+
+	/// <summary>
+	/// 敵発生コマンドの更新
+	/// </summary>
+	void UpdateEnemyPopCommands();
+
+
+	/// <summary>
+	/// 敵弾を追加する
+	/// </summary>
+	/// <param name="enemyBullet"></param>
+	void AddEnemyBullet(EnemyBullet* enemyBullet);
+	/// <summary>
+	/// 敵追加
+	/// </summary>
+	/// <param name="pos"></param>
+	void AddEnemy(Vector3 pos);
+
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -65,6 +89,12 @@ private: // メンバ変数
 	Player* player_ = nullptr;
 	//敵キャラ
 	Enemy* enemy_ = nullptr;
+	//敵リスト
+	std::list<Enemy*> enemys_;
+	//敵弾
+	EnemyBullet* enemyBullet_ = nullptr;
+	//敵弾リスト
+	std::list<EnemyBullet*> bullets_;
 	// デバックカメラ
 	DebugCamera* debugCamera_ = nullptr;
 	// デバックカメラ有効
@@ -76,7 +106,12 @@ private: // メンバ変数
 	RailCamera* reilCamera_ = nullptr;
 	//レールカメラ有効
 	bool isReilCamera_ = true;
-
+	//敵発生コマンド
+	std::stringstream enemyPopCommands;
+	//待機フラグ
+	float standFlag = false;
+	//待機タイマー
+	int32_t standTimer = 120;
 };
 
 
