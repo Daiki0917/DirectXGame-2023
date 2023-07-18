@@ -112,6 +112,7 @@ private: // メンバ変数
 	float standFlag = false;
 	//待機タイマー
 	int32_t standTimer = 120;
+
 };
 
 

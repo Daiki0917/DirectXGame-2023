@@ -10,6 +10,7 @@
 #include<math.h>
 #include<iostream>
 #include"Vector3.h"
+#include <Sprite.h>
 #pragma once
 
 /// <summary>
@@ -28,13 +29,18 @@ public:
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update(ViewProjection& viewProjection);
 
 	/// <summary>
 	/// 描画
 	/// </summary>
 	/// /// <param name="viewProjection">ビュープロジェクション(参照渡し)</param>
 	void Draw(ViewProjection&viewProjection);
+
+	/// <summary>
+	/// UI描画
+	/// </summary>
+	void DrawUI();
 
 	/// <summary>
 	/// 攻撃
@@ -45,6 +51,7 @@ public:
 	/// デストラクタ
 	/// </summary>
 	~Player();
+
 
 	/// <summary>
 	/// 衝突を検出したら呼び出されるコールバック関数
@@ -63,6 +70,8 @@ public:
 private:
 	//ワールド変換データ
 	WorldTransform worldTransform_;
+	// ピュープロジェクション
+	ViewProjection viewProjection_;
 	//モデル
 	Model* model_ = nullptr;
 	//テクスチャハンドル
@@ -72,7 +81,11 @@ private:
 	//弾
 	/*PlayerBullet* bullet_ = nullptr;*/
 	std::list<PlayerBullet*> bullets_;
-
-
+	//3Dレティクル用ワールドトランスフォーム
+	WorldTransform worldTransform3DReticle_;
+	//3Dレティクルモデル
+	Model* reticleModel_ = nullptr;
+	//2Dレティクル用スプライト
+	Sprite* sprite2DReticle_ = nullptr;
 };
 

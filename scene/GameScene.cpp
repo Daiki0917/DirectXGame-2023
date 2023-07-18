@@ -34,6 +34,7 @@ void GameScene::Initialize() {
 	worldTransform_.Initialize();
 	viewProjection_.Initialize();
 
+
 	//自キャラの生成
 	player_ = new Player();
 	//自キャラの初期化
@@ -43,7 +44,8 @@ void GameScene::Initialize() {
 	//レールカメラ
 	reilCamera_ = new RailCamera();
 	reilCamera_->Initialize({0, 0, 0}, {0, 0, 0});
-	
+	//レティクルのテクスチャ
+	TextureManager::Load("target.png");
 	////敵キャラの初期化
 	//enemy_ = new Enemy();
 	////敵キャラの初期化
@@ -56,6 +58,7 @@ void GameScene::Initialize() {
 	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
 	skydome_ = new Skydome();
 	skydome_->Initialize(modelSkydome_);
+
 	//軸方向表示の表示を有効にする
 	AxisIndicator::GetInstance()->SetVisible(true);
 	//軸方向表示が参照するviewProjectionを参照する(アドレスなし)
@@ -67,7 +70,7 @@ void GameScene::Initialize() {
 
 void GameScene::Update() 
 { 
-	player_->Update();
+	player_->Update(viewProjection_);
 	debugCamera_->Update();
 	skydome_->Update();
 	reilCamera_->Update();
@@ -177,6 +180,7 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
+	player_->DrawUI();
 
 	// スプライト描画後処理
 	Sprite::PostDraw();
