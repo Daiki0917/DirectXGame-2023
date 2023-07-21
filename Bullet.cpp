@@ -40,7 +40,6 @@ void PlayerBullet::Update()
 		isDead_ = true;
 	}
 	
-	worldTransform_.UpdateMatrix(); 
 }
 
 void PlayerBullet::OnCollision() 

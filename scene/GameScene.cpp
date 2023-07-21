@@ -37,8 +37,9 @@ void GameScene::Initialize() {
 
 	//自キャラの生成
 	player_ = new Player();
+	Vector3 playerPosition = {0, 0, -30};
 	//自キャラの初期化
-	player_->Initialize(model_,textureHandle_);
+	player_->Initialize(model_,textureHandle_,playerPosition);
 	//デバックカメラ
 	debugCamera_ = new DebugCamera(WinApp::kWindowWidth, WinApp::kWindowHeight);
 	//レールカメラ
