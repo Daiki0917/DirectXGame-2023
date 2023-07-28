@@ -163,7 +163,7 @@ void Player::Update(ViewProjection& viewProjection) {
 		Vector3 mouseDirection = posFar - posNear;
 		mouseDirection = Normalize(mouseDirection);
 		// カメラから照準オブジェクトの距離
-		const float kDistanceTestObject = 10.0f;
+		const float kDistanceTestObject = 100.0f;
 		worldTransform3DReticle_.translation_ = posNear + mouseDirection * kDistanceTestObject;
 		// ワールド行列の更新と転送
 		worldTransform3DReticle_.UpdateMatrix();
@@ -247,16 +247,17 @@ void Player::Attack(){
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_);
 
 		// 自機から標準オブジェクトへのベクトル
-		velocity = worldTransform3DReticle_.translation_ - worldTransform_.translation_;
-		velocity = Normalize(velocity) * 1;
+		//velocity = worldTransform3DReticle_.translation_ - worldTransform_.translation_;
+		//velocity = Normalize(velocity) * 5;
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
-		newBullet->Initialize(model_, GetWorldPosition(), velocity);
+		newBullet->Initialize(model_, worldTransform_.translation_, velocity);
 
 		// 弾を登録する
 		bullets_.push_back(newBullet);
 
+		
     }
 }
 

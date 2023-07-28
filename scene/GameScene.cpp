@@ -37,7 +37,7 @@ void GameScene::Initialize() {
 
 	//自キャラの生成
 	player_ = new Player();
-	Vector3 playerPosition = {0, 0, -30};
+	Vector3 playerPosition = {0, 0, 0};
 	//自キャラの初期化
 	player_->Initialize(model_,textureHandle_,playerPosition);
 	//デバックカメラ
