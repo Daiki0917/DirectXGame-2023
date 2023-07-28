@@ -246,9 +246,9 @@ void Player::Attack(){
 		//速度ベクトルを自機の向きに合わせて回転させる
 		velocity = TransformNormal(velocity,worldTransform_.matWorld_);
 
-		// 自機から標準オブジェクトへのベクトル
-		//velocity = worldTransform3DReticle_.translation_ - worldTransform_.translation_;
-		//velocity = Normalize(velocity) * 5;
+		 //自機から標準オブジェクトへのベクトル
+		velocity = worldTransform3DReticle_.translation_ - worldTransform_.translation_;
+		velocity = Normalize(velocity) * 1;
 
 		//弾を生成し、初期化
 		PlayerBullet* newBullet = new PlayerBullet();
