@@ -45,6 +45,7 @@ void EnemyBullet::Update() {
 
 void EnemyBullet::OnCollision(){
 	isDead_ = true;
+	isAlive = false;
 }
 
 // ワールド座標を取得

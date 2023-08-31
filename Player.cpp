@@ -38,7 +38,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 pos) {
 	uint32_t textureReticle = TextureManager::Load("target.png");
 
 	//スプライト生成
-	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {1, 1, 1, 1}, {0.5f,0.5f});
+	sprite2DReticle_ = Sprite::Create(textureReticle, {640, 360}, {-1, 1, 1, 1}, {0.5f,0.5f});
 }
 
 /// <summary>
@@ -47,17 +47,17 @@ void Player::Initialize(Model* model, uint32_t textureHandle,Vector3 pos) {
 void Player::Update(ViewProjection& viewProjection) {
 
 	//回転速さ[ラジアン/frame]
-	const float kRotSpeed = 0.02f;
+	//const float kRotSpeed = 0.02f;
 
 	//押した方向で移動ベクトルを変更
-	if (input_->PushKey(DIK_A))
+	/*if (input_->PushKey(DIK_A))
 	{
 		worldTransform_.rotation_.y -= kRotSpeed;
 	}
 	else if (input_->PushKey(DIK_D))
 	{
 		worldTransform_.rotation_.y += kRotSpeed;
-	}
+	}*/
 	//デスフラグの立った球の削除
 	bullets_.remove_if([](PlayerBullet* bullet) {
 		if (bullet->IsDead()) {
@@ -257,7 +257,6 @@ void Player::Attack(){
 		// 弾を登録する
 		bullets_.push_back(newBullet);
 
-		
     }
 }
 
@@ -275,6 +274,6 @@ Vector3 Player::GetWorldPosition() {
 }
 void Player::OnCollision() 
 {
-
+	isAlive = false; 
 }
 

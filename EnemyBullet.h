@@ -49,4 +49,6 @@ private:
 	int32_t deathTimer_ = kLifeTime;
 	// デスフラグ
 	bool isDead_ = false;
+	//敵弾フラグ
+	bool isAlive = true;
 };

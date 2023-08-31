@@ -66,6 +66,7 @@ public:
 	
 	const float GetPlayerRadius() { return playerRadius; }
 	const float playerRadius = 1.0f;
+	const bool GetPlayerAlive() { return isAlive; }
 
 private:
 	//ワールド変換データ
@@ -87,5 +88,7 @@ private:
 	Model* reticleModel_ = nullptr;
 	//2Dレティクル用スプライト
 	Sprite* sprite2DReticle_ = nullptr;
+	//プレイヤーフラグ
+	bool isAlive = true;
 };
 

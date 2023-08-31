@@ -16,12 +16,23 @@
 #include<list>
 #include<sstream>
 
+
 /// <summary>
 /// ゲームシーン
 /// </summary>
 class GameScene {
 
 public: // メンバ関数
+
+	enum Scene {
+	TITLE,
+	GAMEPLAY,
+	GAMECLEAR,
+	GAMEOVER,
+};
+	// シーンNo
+	Scene sceneNo = TITLE;
+
 	/// <summary>
 	/// コンストクラタ
 	/// </summary>
@@ -79,6 +90,16 @@ private: // メンバ変数
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
 	uint32_t textureHandle_ = 0;
+	
+	uint32_t titleTexture_ = 0u;
+	Sprite* spriteTitle_ = nullptr;
+
+	uint32_t GameClear_ = 0u;
+	Sprite* spriteGameClear_ = nullptr;
+
+	uint32_t GameOver_ = 0u;
+	Sprite* spriteGameOver_ = nullptr;
+
 	// 3Dモデル
 	Model* model_ = nullptr;
 	// ワールドトランスフォーム
@@ -112,7 +133,7 @@ private: // メンバ変数
 	float standFlag = false;
 	//待機タイマー
 	int32_t standTimer = 120;
-
+	
 };
 
 

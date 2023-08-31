@@ -87,6 +87,7 @@ void Enemy::Fire()
 	Vector3 dir = {vector.x / length, vector.y / length, vector.z / length};
 
 	Vector3 velocity = {dir.x * kBulletSpeed, dir.y * kBulletSpeed, dir.z * kBulletSpeed};
+
 	// 弾を生成し、初期化
 	EnemyBullet* newBullet = new EnemyBullet();
 	newBullet->Initialize(model_, worldTransform_.translation_, velocity);
