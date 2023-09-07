@@ -26,6 +26,7 @@ public: // メンバ関数
 
 	enum Scene {
 	TITLE,
+	OPERATION,
 	GAMEPLAY,
 	GAMECLEAR,
 	GAMEOVER,
@@ -93,6 +94,9 @@ private: // メンバ変数
 	
 	uint32_t titleTexture_ = 0u;
 	Sprite* spriteTitle_ = nullptr;
+
+	uint32_t Operation_ = 0u;
+	Sprite* spriteOperation_ = nullptr;
 
 	uint32_t GameClear_ = 0u;
 	Sprite* spriteGameClear_ = nullptr;

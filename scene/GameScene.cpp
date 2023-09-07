@@ -34,6 +34,9 @@ void GameScene::Initialize() {
 	titleTexture_ = TextureManager::Load("title.png");
 	spriteTitle_ = Sprite::Create(titleTexture_, {640, 360}, {1, 1, 1,1}, {0.5f, 0.5f});
 
+	Operation_ = TextureManager::Load("sousa.png");
+	spriteOperation_ = Sprite::Create(Operation_, {640, 360}, {1, 1, 1, 1}, {0.5f, 0.5f});
+
 	GameClear_ = TextureManager::Load("GameClear.png");
 	spriteGameClear_ = Sprite::Create(GameClear_, {640, 360}, {1, 1, 1, 1}, {0.5f, 0.5f});
 
@@ -81,6 +84,12 @@ void GameScene::Initialize() {
 void GameScene::Update() {
 	switch (sceneNo) {
 	case TITLE:
+		if (input_->TriggerKey(DIK_SPACE)) {
+			sceneNo = OPERATION;
+		}
+		break;
+
+	case OPERATION:
 		if (input_->TriggerKey(DIK_SPACE)) {
 			sceneNo = GAMEPLAY;
 		}
@@ -174,6 +183,18 @@ void GameScene::Draw(){
 		/// ここに前景スプライトの描画処理を追加できる
 		/// </summary>
 		spriteTitle_->Draw();
+		// スプライト描画後処理
+		Sprite::PostDraw();
+		break;
+
+	case OPERATION:
+		// 前景スプライト描画前処理
+		Sprite::PreDraw(commandList);
+
+		/// <summary>
+		/// ここに前景スプライトの描画処理を追加できる
+		/// </summary>
+		spriteOperation_->Draw();
 		// スプライト描画後処理
 		Sprite::PostDraw();
 		break;
